@@ -66,7 +66,7 @@ if (isset($_SESSION['email'])){
 						<li class="nav-item">
 							<a class="nav-link active" href="../myprojects">
 								<span class="fas fa-box-open"></span>
-								Nuevos Proyectos <span class="sr-only"></span>
+								Proyectos <span class="sr-only"></span>
 							</a>
 						</li>
 
@@ -130,25 +130,29 @@ if (isset($_SESSION['email'])){
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) {
-							//echo "<div class=\"py-5\">\n"; 
-							echo "<div class=\"container mt-4\">\n"; 
+							//echo "<div class=\"py-5\">\n";
+							echo "<div class=\"container mt-4\">\n";
 							echo "    <div class=\"row\">\n";
 						    // output data of each row
-						    while($row = $result->fetch_assoc()) {  
-						    	echo "<div class=\"col-auto mb-3\">\n"; 
-								echo "            <div class=\"card\" style=\"width: 18rem;\">\n"; 
-								echo "                <div class=\"card-body\">\n"; 
-								echo "                    <h5 class=\"card-title\">".$row["titulo"]."</h5>\n"; 
-								echo "                    <h6 class=\"card-subtitle mb-2 text-muted\">$ ".$row["precio"]."</h6>\n"; 
-								echo "                    <p class=\"card-text\">".substr($row["descripcion"], 0, 50)."</p>\n"; 
-								echo "                    <a href=\"#\" class=\"btn btn-primary\">Entrar</a>\n"; 
-								//echo "                    <a href=\"#\" class=\"card-link\">Another link</a>\n"; 
-								echo "                </div>\n"; 
-								echo "            </div>\n"; 
+						    while($row = $result->fetch_assoc()) {
+						    	echo "<div class=\"col-auto mb-3\">\n";
+								echo "            <div class=\"card\" style=\"width: 18rem;\">\n";
+								echo "                <div class=\"card-body\">\n";
+								echo "                    <h5 class=\"card-title\">".$row["titulo"]."</h5>\n";
+								echo "                    <h6 class=\"card-subtitle mb-2 text-muted\">$ ".$row["precio"]."</h6>\n";
+								echo "                    <p class=\"card-text\">".substr($row["descripcion"], 0, 50)."</p>\n";
+								echo "<a href=\"javascript:document.getElementById('edit".$row["id"]."').submit();\" class=\"btn btn-primary\">Editar <i class=\"fas fa-pencil-alt\"></i></a>\n";
+								echo "                    <a href=\"#\" class=\"btn btn-primary\">Compartir <i class=\"fas fa-share-square\"></i></a>\n";
+								echo "<form action=\"edit/\" id=\"edit".$row["id"]."\" method=\"post\">\n";
+								echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+								echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row["email_user"]."\">\n";
+								echo "</form>\n";
+								echo "                </div>\n";
+								echo "            </div>\n";
 								echo "        </div>\n";
 						     }
-							echo "      </div>\n"; 
-							echo "    </div>\n"; 
+							echo "      </div>\n";
+							echo "    </div>\n";
 							//echo "  </div>\n";
 						} else {
 						    echo "0 results";

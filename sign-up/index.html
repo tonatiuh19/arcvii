@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>arcvii</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,26 +18,23 @@
   </head>
 
   <body class="text-center">
-    <form class="form-signin" action="newuser.php" method="post">
-      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Bienvenido</h1>
-     
-      <input type="email" id="t2" name="inputEmail" class="form-control" placeholder="Correo Electronico" required autofocus>
-      <br>
-      <input type="text" name="name" class="form-control" placeholder="Nombre" required>
-      <input type="text" name="lastname" class="form-control" placeholder="Apellido" required>
-      <br>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="inputPassword1" id="password1" class="form-control" placeholder="Contraseña" ng-model="password.password" ng-required="true" id="password-to-verify" required>
-      <input type="password" name="pwd" id="password2" class="form-control" placeholder="Repetir Contraseña" required>
-      <br>
-      <input type="text" name="phone" class="form-control" placeholder="Telefono" required>
-      <br>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarme</button>
-      <small>Al registrarme acepto <a href="#">Terminos y Condiciones</a></small>
-      <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
-    </form>
-  </body>
+   <div class="card text-center">
+    <div class="card-header bg-dark">
+      <img src="../img/logo.png" class="img-fluid" alt="Responsive image">
+    </div>
+    <div class="card-body">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6"><p><h5>¿Necesitas publicar un <br>proyecto?</h5></p><a href="own/" class="btn btn-primary">Contrata</a></div>
+              <div class="col-sm-6"><p><h5>¿Quieres trabajar en un <br>proyecto?</h5></p><a href="dev/" class="btn btn-primary">Registrate</a></div>
+          </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      ¿Ya estas registrado? <a href="../sign-in/">Ingresa</a>
+    </div>
+  </div>
+</body>
   <script type="text/javascript">
     var password1 = document.getElementById('password1');
     var password2 = document.getElementById('password2');

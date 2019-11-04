@@ -16,16 +16,17 @@ if ($result->num_rows > 0) {
     // output data of each row
     echo ("<SCRIPT LANGUAGE='JavaScript'>
       window.alert('¡Este usuario ya existe!')
-      window.location.href='../sign-up/';
+      window.location.href='../';
       </SCRIPT>");    0
     ......
 } else {
-    $sql = "INSERT INTO user (email, nombre, apellido, pwd, telefono)
-    VALUES ('$mail', '$name', '$lastname', '$pwd', '$phone')";
+    $sql = "INSERT INTO user (email, nombre, apellido, pwd, telefono, type)
+    VALUES ('$mail', '$name', '$lastname', '$pwd', '$phone', '1')";
 
     if ($conn->query($sql) === TRUE) {
+    	$_SESSION["email"] =	$row["email"];
     	echo ("<SCRIPT LANGUAGE='JavaScript'>
-                  window.location.href='../dashboard/';
+                  window.location.href='../../dashboard/';
                   </SCRIPT>");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

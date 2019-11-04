@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../admin/cn.php');
+require_once('../../admin/cn.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $mail = test_input($_POST["inputEmail"]);
@@ -17,25 +17,26 @@ if ($result->num_rows > 0) {
     echo ("<SCRIPT LANGUAGE='JavaScript'>
       window.alert('¡Este usuario ya existe!')
       window.location.href='../sign-up/';
-      </SCRIPT>");    0
-    ......
+      </SCRIPT>");    
+    
 } else {
-    $sql = "INSERT INTO user (email, nombre, apellido, pwd, telefono)
-    VALUES ('$mail', '$name', '$lastname', '$pwd', '$phone')";
+    $sql = "INSERT INTO user (email, nombre, apellido, pwd, telefono, type)
+    VALUES ('$mail', '$name', '$lastname', '$pwd', '$phone', '2')";
 
     if ($conn->query($sql) === TRUE) {
+      $_SESSION["email"] =  $mail;
     	echo ("<SCRIPT LANGUAGE='JavaScript'>
-                  window.location.href='../dashboard/';
+                  window.location.href='../../dashboard/';
                   </SCRIPT>");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-}
+}/**/
   $conn->close();
 
 }else{
 	 echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.location.href='../sign-up/';
+      window.location.href='../';
       </SCRIPT>");
 }
 

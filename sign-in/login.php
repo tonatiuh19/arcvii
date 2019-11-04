@@ -9,20 +9,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $pd2 = md5($pwd);
 
 
-	$sql = "SELECT email, nombre, apellido FROM user WHERE email='$email' AND pwd='$pwd'";
+	$sql = "SELECT email, nombre, apellido, type FROM user WHERE email='$email' AND pwd='$pwd'";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
 	        $_SESSION["email"] =	$row["email"];
+          $_SESSION["type_user"] =	$row["type"];
+	        if ($row["type"]==2) {
+	        	if (isset($_SESSION['email'])){
+				echo ("<SCRIPT LANGUAGE='JavaScript'>
+			   	window.location.href='../dashboard/';
+			    </SCRIPT>");}
+	        }else if ($row["type"]==3) {
+	        	if (isset($_SESSION['email'])){
+				echo ("<SCRIPT LANGUAGE='JavaScript'>
+			   	window.location.href='../workplace/';
+			    </SCRIPT>");}
+	        }
 
-	        if (isset($_SESSION['email'])){
-			echo ("<SCRIPT LANGUAGE='JavaScript'>
-		   	window.location.href='../dashboard/';
-		    </SCRIPT>");
-
-		}
 	    }
 	} else{
 		echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -31,10 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	    </SCRIPT>");
 	}
 
-		
+
 }else{
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
-   
+
     window.location.href='../sign-in/';
     </SCRIPT>");
 }

@@ -50,7 +50,7 @@ if (isset($_SESSION['email'])){
             <li class="nav-item">
               <a class="nav-link active" href="../myprojects">
                 <span class="fas fa-box-open"></span>
-                Nuevos Proyectos <span class="sr-only"></span>
+              Proyectos <span class="sr-only"></span>
               </a>
             </li>
 
@@ -109,7 +109,7 @@ if (isset($_SESSION['email'])){
                       <label for="exampleFormControlInput1">Titulo del proyecto:</label>
                       <input type="text" class="form-control" name="title" id="exampleFormControlInput1" placeholder="Render Casa" required>
                     </div>
-                    
+
                     <div class="form-group">
                       <label for="exampleFormControlInput1">Precio:</label>
                       <input type="number" class="form-control" name="price" id="exampleFormControlInput1" placeholder="40,000" required>
@@ -148,7 +148,7 @@ if (isset($_SESSION['email'])){
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
       <!-- Icons -->

@@ -391,7 +391,7 @@ function test_input($data) {
 																	<script>
 																				$(document).on("ready", function(){
 																					registerMessages();
-																					//console.log($.ajax);
+																					console.log($.ajax);
 																				});
 																				var registerMessages = function(){
 																					var frm = $("#formChat").serialize();
@@ -400,13 +400,13 @@ function test_input($data) {
 
 																						console.log(frm);
 
-																						/*$.ajax({
+																						$.ajax({
 																							type: "POST",
 																							url: "register.php",
 																							data: frm
 																						}).done(function(info){
 																							console.log(info);
-																						});*/
+																						});
 																						e.preventDefault();
 																					});
 																				}

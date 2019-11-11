@@ -129,26 +129,85 @@ if (isset($_SESSION['email'])){
 						</div>
 					</div>
 					<section class="bg-light" id="portfolio">
-						<div class="jumbotron">
-						  <h1 class="display-4">¡Bienvenido!</h1>
-						  <p class="lead">En esta seccion podras actualizar transcurso de cada uno de tus proyectos (avances, evidencias, resultados, etc).</p>
-						  <hr class="my-4">
-						  <p></p>
-						  <p class="lead">
-						  	<?php 
-						  	$sql = "SELECT experiencia FROM portfolio WHERE email_user='".$_SESSION['email']."'";
-							$result = $conn->query($sql);
+						<?php
+						$sql2 = "SELECT a.id, a.id_project, a.status, a.date, b.id_project_type, b.titulo, b.descripcion, b.precio, a.email_user FROM projects_candidates AS a inner join projects as b on a.id_project=b.id WHERE a.date = (SELECT MAX(date) FROM projects_candidates WHERE email_user='".$_SESSION["email"]."' and status='1')";
+						$result2 = $conn->query($sql2);
 
-							if ($result->num_rows > 0) {
-							    echo "<a class=\"btn btn-primary btn-lg\" href=\"projects/\" role=\"button\">Busca un proyecto</a>\n";
-							} else {
-							    echo "<a class=\"btn btn-primary btn-lg\" href=\"portfolio/\" role=\"button\">Empieza llenando tu portfolio</a>\n";
-							}
-							$conn->close();
-						  	?>
-						    
-						  </p>
-						</div>
+						if ($result2->num_rows > 0) {
+							echo "<div class=\"container mt-4\">\n";
+							echo "    <div class=\"row\">\n";
+								while($row2= $result2->fetch_assoc()) {
+									echo "<div class=\"col-auto mb-3\">\n";
+									echo "            <div class=\"card\" style=\"width: 18rem;\">\n";
+									echo "                <div class=\"card-body\">\n";
+									echo "                    <h5 class=\"card-title\">".$row2["titulo"]."</h5>\n";
+									echo "                    <h6 class=\"card-subtitle mb-2 text-muted\">Genancia $ ".number_format($row2["precio"],2,".",",")."</h6>\n";
+									echo "                    <p class=\"card-text\">".substr($row2["descripcion"], 0, 50)."</p>\n";
+									echo '<a data-toggle="modal" href="#myModal'.$row2["id"].'" class="btn btn-info">Ver mas</a>';
+									if ($row2["status"]=="0") {
+										echo "                    <a href=\"#\" class=\"btn btn-warning\">Esperando</a>\n";
+									}elseif ($row2["status"]=="1") {
+										echo "                    <a href=\"javascript:document.getElementById('admin".$row2["id"]."').submit();\" class=\"btn btn-success\">Entrar</a>\n";
+
+									}elseif ($row2["status"]=="2") {
+										//echo "                    <a href=\"javascript:document.getElementById('my_form').submit();\" class=\"btn btn-danger\">Esperando</a>\n";
+									}
+									echo "<form action=\"projects/admin/\" id=\"admin".$row2["id"]."\" method=\"post\">\n";
+									echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row2["id_project"]."\">\n";
+									echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row2["email_user"]."\">\n";
+									echo "</form>\n";
+									echo "                </div>\n";
+									echo "            </div>\n";
+									echo "        </div>\n";
+									echo '<div class="modal fade" id="myModal'.$row2["id"].'">
+													<div class="modal-dialog">
+														<div class="modal-content">
+
+															<!-- Modal Header -->
+															<div class="modal-header">
+																<h4 class="modal-title">'.$row2["titulo"].'</h4>
+																<button type="button" class="close" data-dismiss="modal">&times;</button>
+															</div>
+
+															<!-- Modal body -->
+															<div class="modal-body">
+																'.$row2["descripcion"].'
+															</div>
+
+															<!-- Modal footer -->
+															<div class="modal-footer">
+
+																<button type="button" class="btn btn-success" data-dismiss="modal">Aplicar</button>
+															</div>
+
+														</div>
+													</div>
+												</div>
+									';
+
+								}
+								echo "      </div>\n";
+								echo "    </div>\n";
+						} else {
+							echo '<div class="jumbotron">
+								<h1 class="display-4">¡Bienvenido!</h1>
+								<p class="lead">En esta seccion podras actualizar transcurso de cada uno de tus proyectos (avances, evidencias, resultados, etc).</p>
+								<hr class="my-4">
+								<p></p>
+								<p class="lead">';
+									$sql = "SELECT experiencia FROM portfolio WHERE email_user='".$_SESSION['email']."'";
+									$result = $conn->query($sql);
+
+									if ($result->num_rows > 0) {
+
+											echo "<a class=\"btn btn-primary btn-lg\" href=\"projects/\" role=\"button\">Busca un proyecto</a>\n";
+									} else {
+											echo "<a class=\"btn btn-primary btn-lg\" href=\"portfolio/\" role=\"button\">Empieza llenando tu portfolio</a>\n";
+									}
+								echo '</p>
+							</div>';
+						}
+						 ?>
 					</section>
 				</div>
 			</main>

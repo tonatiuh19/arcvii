@@ -157,10 +157,16 @@ if (isset($_SESSION['email'])){
 								        if ($row2["status"]=="0") {
 								        	echo "                    <a href=\"#\" class=\"btn btn-warning\">Esperando</a>\n";
 								        }elseif ($row2["status"]=="1") {
-								        	echo "                    <a href=\"#\" class=\"btn btn-success\">Entrar</a>\n";
+								        	echo "                    <a href=\"javascript:document.getElementById('admin".$row["id"]."').submit();\" class=\"btn btn-success\">Entrar</a>\n";
+
 								        }elseif ($row2["status"]=="2") {
 								        	//echo "                    <a href=\"javascript:document.getElementById('my_form').submit();\" class=\"btn btn-danger\">Esperando</a>\n";
 								        }
+												echo "<form action=\"admin/\" id=\"admin".$row["id"]."\" method=\"post\">\n";
+												echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+												echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row2["email_user"]."\">\n";
+												echo "</form>\n";
+
 								    }
 								} else {
 								    echo "<a href=\"javascript:document.getElementById('my_form".$row["id"]."').submit();\" class=\"btn btn-primary\">Aplicar</a>\n";

@@ -1,66 +1,42 @@
 <?php
 // define variables and set to empty values
 session_start();
-require_once('../cn.php');
+require_once('../../admin/cn.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$nombre = test_input($_POST["nombre"]);
-	$apellido = test_input($_POST["apellido"]);
+	$nombre = test_input($_POST["name"]);
+	$apellido = test_input($_POST["last"]);
 	$email = test_input($_POST["email"]);
-	$pwdactual = test_input($_POST["pwdactual"]);
-	$pwd = test_input($_POST["pwd"]);
-	$telefono = test_input($_POST["telefono"]);
+	$pwd2 = test_input($_POST["pwd2"]);
+	$pwd =  md5(test_input($_POST["pwd"]));
+	$telefono = test_input($_POST["phone"]);
 
-	$sql = "SELECT pwd FROM usuarios where email='".$_SESSION['email']."'";
-	$result = $conn->query($sql);
+	if ($pwd=="") {
+		$sql = "UPDATE user SET nombre='$nombre', apellido='$apellido', email='$email', telefono='$telefono' WHERE email='".$email."'";
 
-	if ($result->num_rows > 0) {
-	    // output data of each row
-		while($row = $result->fetch_assoc()) {
-			if ($row["pwd"] != $pwdactual) {
-				echo ("<SCRIPT LANGUAGE='JavaScript'>
-					window.alert('Contraseña actual incorrecta')
-					window.location.href='../profile/';
-					</SCRIPT>");
-			}else{
-				if ($pwd != ''){
-					$sql = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', email='$email', pwd='$pwd', telefono='$telefono' WHERE email='".$_SESSION['email']."'";
+		if ($conn->query($sql) === TRUE) {
+			echo ("<SCRIPT LANGUAGE='JavaScript'>
 
-					if ($conn->query($sql) === TRUE) {
-						echo ("<SCRIPT LANGUAGE='JavaScript'>
-							window.alert('Perfil actualizado satisfactoriamente')
-							window.location.href='../profile/';
-							</SCRIPT>");
-					} else {
-						echo ("<SCRIPT LANGUAGE='JavaScript'>
-							window.alert('Houston tenemos problemas: Intentalo de nuevo mas tarde')
-							window.location.href='../profile/';
-							</SCRIPT>");
-					}
-
-				}else{
-					$sql = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', email='$email', telefono='$telefono' WHERE email='".$_SESSION['email']."'";
-
-					if ($conn->query($sql) === TRUE) {
-						echo ("<SCRIPT LANGUAGE='JavaScript'>
-							window.alert('Perfil actualizado satisfactoriamente')
-							window.location.href='../profile/';
-							</SCRIPT>");
-					} else {
-						echo ("<SCRIPT LANGUAGE='JavaScript'>
-							window.alert('Houston tenemos problemas: Intentalo de nuevo mas tarde')
-							window.location.href='../profile/';
-							</SCRIPT>");
-					}
-
-				}
-
-			}
-
+				window.location.href='../profile/';
+				</SCRIPT>");
+		} else {
+		    echo "Error updating record: " . $conn->error;
 		}
-	} else {
-		echo "0 results";
+	}else{
+		$sql = "UPDATE user SET nombre='$nombre', apellido='$apellido', email='$email', pwd='$pwd', telefono='$telefono' WHERE email='".$email."'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo ("<SCRIPT LANGUAGE='JavaScript'>
+
+				window.location.href='../profile/';
+				</SCRIPT>");
+		} else {
+		    echo "Error updating record: " . $conn->error;
+		}
 	}
+
+
+
 	$conn->close();
 
 

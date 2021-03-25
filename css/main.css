@@ -4,7 +4,7 @@
 /* Mobile Layout: 320px */
 /* Wide Mobile Layout: 480px */
 /* =================================== */
-/*  Basic Style 
+/*  Basic Style
 /* =================================== */
 ::-moz-selection {
   /* Code for Firefox */
@@ -2168,7 +2168,7 @@ h1, h2, h3, h4, h5, h6 {
 .banner-area {
   margin-top: -56px;
   border-radius: 10px;
-  background: url(https://media.giphy.com/media/136bDlM5aohWWk/giphy.gif) center;
+  background: url(../img/front.jpg) center;
   background-size: cover;
 }
 

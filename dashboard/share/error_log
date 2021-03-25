@@ -1,0 +1,47 @@
+[31-Dec-2019 13:18:41 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:18:41 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:18:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected 'script' (T_STRING), expecting ',' or ';' in /home3/alanchat/arcvii.com/dashboard/share/index.php on line 65
+[31-Dec-2019 13:19:56 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:19:56 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:19:56 America/Mexico_City] PHP Warning:  require_once(../../../admin/cn.php): failed to open stream: No such file or directory in /home3/alanchat/arcvii.com/dashboard/share/index.php on line 3
+[31-Dec-2019 13:19:56 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../../../admin/cn.php' (include_path='.:/opt/php56/lib/php') in /home3/alanchat/arcvii.com/dashboard/share/index.php on line 3
+[31-Dec-2019 13:20:16 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:20:16 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:22:52 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:22:52 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:23:50 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:23:50 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:30:21 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:30:21 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:31 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:31 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:34 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:34 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:58 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:32:58 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:00 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:00 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:04 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:04 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:07 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:07 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:41 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:41 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:44 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:33:44 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:34:59 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:34:59 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:35:14 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:35:14 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[31-Dec-2019 13:35:16 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[31-Dec-2019 13:35:16 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[02-Jan-2020 12:20:56 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[02-Jan-2020 12:20:56 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[02-Jan-2020 12:22:49 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[02-Jan-2020 12:22:49 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[05-Jan-2020 00:47:58 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[05-Jan-2020 00:47:58 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[07-Jan-2020 13:35:51 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[07-Jan-2020 13:35:51 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0
+[09-Jan-2020 13:41:47 America/Mexico_City] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[09-Jan-2020 13:41:47 America/Mexico_City] PHP Warning:  Module 'SourceGuardian' already loaded in Unknown on line 0

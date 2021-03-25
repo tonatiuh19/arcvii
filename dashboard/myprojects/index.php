@@ -30,6 +30,12 @@ if (isset($_SESSION['email'])){
 			background-color: #fff;
 			border-top: 2px dashed #8c8b8b;
 		}
+		#logout_sidebar_button {
+		    position: absolute;
+		    display: inline-block;
+		    bottom: 0;
+		    left: 15px;
+		}
 	</style>
 
 	<!-- Bootstrap core CSS -->
@@ -47,11 +53,11 @@ if (isset($_SESSION['email'])){
 
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../"><img src="../img/logo.png" class="img-responsive" style="width:18%"></a>
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../"><img src="../../img/logo.png" class="img-responsive" style="width:18%"></a>
 
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap">
-				<a class="nav-link" href="fin.php">Cerrar sesion</a>
+				<a class="nav-link" href="../../fin.php">Cerrar sesion</a>
 			</li>
 		</ul>
 
@@ -66,7 +72,7 @@ if (isset($_SESSION['email'])){
 						<li class="nav-item">
 							<a class="nav-link active" href="../myprojects">
 								<span class="fas fa-box-open"></span>
-								Nuevos Proyectos <span class="sr-only"></span>
+								Proyectos <span class="sr-only"></span>
 							</a>
 						</li>
 
@@ -88,30 +94,26 @@ if (isset($_SESSION['email'])){
 
 					<ul class="nav flex-column mb-2">
 						<li class="nav-item ">
-							<a class="nav-link " href="profile/">
+							<a class="nav-link " href="../profile/">
 								<span class="fas fa-user-cog">&nbsp;</span>
 								Mi perfil
 							</a>
 						</li>
 
 					</ul>
-					<div class="fixed-bottom"><p>&nbsp;<ul class="list-inline social-buttons">
+					<p>&nbsp;<ul class="list-inline social-buttons nav nav-sidebar" id="logout_sidebar_button">
+
 						<li class="list-inline-item">
-							<a href="#">
-								<i class="fab fa-twitter"></i>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">
+							<a href="https://www.facebook.com/arcvii.mx/" target="_blank">
 								<i class="fab fa-facebook"></i>
 							</a>
 						</li>
 						<li class="list-inline-item">
-							<a href="#">
+							<a href="https://www.instagram.com/arcvii_mx/" target="_blank">
 								<i class="fab fa-instagram"></i>
 							</a>
 						</li>
-					</ul></p><p>&nbsp;<span class="copyright small">Copyright &copy; arcvii 2018</span></p></div>
+					</p><p>&nbsp;<span class="copyright small">Copyright &copy; arcvii 2020</span></p>
 				</div>
 			</nav>
 
@@ -130,28 +132,42 @@ if (isset($_SESSION['email'])){
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) {
-							//echo "<div class=\"py-5\">\n"; 
-							echo "<div class=\"container mt-4\">\n"; 
+							//echo "<div class=\"py-5\">\n";
+							echo "<div class=\"container mt-4\">\n";
 							echo "    <div class=\"row\">\n";
 						    // output data of each row
-						    while($row = $result->fetch_assoc()) {  
-						    	echo "<div class=\"col-auto mb-3\">\n"; 
-								echo "            <div class=\"card\" style=\"width: 18rem;\">\n"; 
-								echo "                <div class=\"card-body\">\n"; 
-								echo "                    <h5 class=\"card-title\">".$row["titulo"]."</h5>\n"; 
-								echo "                    <h6 class=\"card-subtitle mb-2 text-muted\">$ ".$row["precio"]."</h6>\n"; 
-								echo "                    <p class=\"card-text\">".substr($row["descripcion"], 0, 50)."</p>\n"; 
-								echo "                    <a href=\"#\" class=\"btn btn-primary\">Entrar</a>\n"; 
-								//echo "                    <a href=\"#\" class=\"card-link\">Another link</a>\n"; 
-								echo "                </div>\n"; 
-								echo "            </div>\n"; 
+						    while($row = $result->fetch_assoc()) {
+						    	echo "<div class=\"col-auto mb-3\">\n";
+								echo "            <div class=\"card\" style=\"width: 18rem;\">\n";
+								echo "                <div class=\"card-body\">\n";
+								echo "                    <h5 class=\"card-title\">".$row["titulo"]."</h5>\n";
+								echo "                    <h6 class=\"card-subtitle mb-2 text-muted\">$ ".$row["precio"]."</h6>\n";
+								echo "                    <p class=\"card-text\">".substr($row["descripcion"], 0, 50)."</p>\n";
+								echo "<a href=\"javascript:document.getElementById('edit".$row["id"]."').submit();\" class=\"btn btn-primary\">Editar <i class=\"fas fa-pencil-alt\"></i></a>\n";
+								//echo "                    <a href=\"#\" class=\"btn btn-primary\">Compartir <i class=\"fas fa-share-square\"></i></a>\n";
+								echo "<form action=\"edit/\" id=\"edit".$row["id"]."\" method=\"post\">\n";
+								echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+								echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row["email_user"]."\">\n";
+								echo "</form>\n";
+								echo "                </div>\n";
+								echo "            </div>\n";
 								echo "        </div>\n";
 						     }
-							echo "      </div>\n"; 
-							echo "    </div>\n"; 
+							echo "      </div>\n";
+							echo "    </div>\n";
 							//echo "  </div>\n";
 						} else {
-						    echo "0 results";
+							echo '
+								<section class="bg-light" id="portfolio">
+									<div class="jumbotron">
+										<h1 class="display-4">¡Bienvenido!</h1>
+										<p class="lead">En esta seccion podras editar o añadir proyectos.</p>
+										<hr class="my-4">
+										<p></p>
+										<p class="lead">
+											<a class="btn btn-primary btn-lg" href="../proy/" role="button">Empezar Proyecto</a>
+										</p>
+									</div>';
 						}
 						$conn->close();
 						?>
@@ -174,34 +190,7 @@ if (isset($_SESSION['email'])){
 	});
 </script>
 <script type="text/javascript">
-  Conekta.setPublicKey('key_Lc3mLsmPDnNJsv5zYhzAkjA');
 
-
-  var conektaSuccessResponseHandler = function(token) {
-    var $form = $("#card-form");
-    //Add the token_id in the form
-     $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token.id));
-    $form.get(0).submit(); //Submit
-  };
-
-  var conektaErrorResponseHandler = function(response) {
-    var $form = $("#card-form");
-    $form.find(".card-errors").text(response.message_to_purchaser);
-    $form.find("button").prop("disabled", false);
-
-  };
-
-  //jQuery generate the token on submit.
-  $(function () {
-    $("#card-form").submit(function(event) {
-      var $form = $(this);
-      // Prevents double clic
-      $form.find("button").prop("disabled", true);
-      Conekta.Token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
-
-      return false;
-    });
-  });
 </script>
 <script type="text/javascript">
 	$('#btnClick').on('click',function(){
@@ -219,11 +208,11 @@ if (isset($_SESSION['email'])){
     <!-- Bootstrap core JavaScript
     	================================================== -->
     	<!-- Placed at the end of the document so the pages load faster -->
-    	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    	<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
     	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 

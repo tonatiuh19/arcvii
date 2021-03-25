@@ -1,10 +1,41 @@
 <?php
 session_start();
+require_once('../admin/cn.php');
 if (isset($_SESSION['email'])){
+	$maili = $_SESSION['email'];
+	$sql = "SELECT active FROM user where email='$maili'";
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+	    // output data of each row
+	    while($row = $result->fetch_assoc()) {
+	        if ($row["active"]==0) {
+						/*echo ("<SCRIPT LANGUAGE='JavaScript'>
+				      window.alert('Tu cuenta se encuentra inactiva')
+				      window.location.href='../';
+				      </SCRIPT>");*/
+							echo "<form action=\"../sign-up/verify/\" id=\"my_form\" method=\"post\">\n";
+	            echo "  <input type=\"hidden\" name=\"project\" value=\"".$maili."\">\n";
+	            echo "  <input type=\"hidden\" name=\"type\" value=\"2\">\n";
+	            echo "<input type='submit' name='btnSignIn' value='Sending...' id='btnSignIn' />\n";
+	            echo "</form>\n";
+	            echo "<script type=\"text/javascript\">\n";
+							//echo "window.alert('Tu cuenta se encuentra inactiva')";
+	            echo "    document.getElementById('btnSignIn').click();\n";
+	            echo "</script>\n";
+	        }
+	    }
+	}
 
 }else{
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
 		window.location.href='../sign-in/';
+		</SCRIPT>");
+}
+
+if ($_SESSION['type_user']=="3") {
+	echo ("<SCRIPT LANGUAGE='JavaScript'>
+		window.location.href='../workplace/';
 		</SCRIPT>");
 }
 
@@ -28,6 +59,12 @@ if (isset($_SESSION['email'])){
 		hr.style5 {
 			background-color: #fff;
 			border-top: 2px dashed #8c8b8b;
+		}
+		#logout_sidebar_button {
+		    position: absolute;
+		    display: inline-block;
+		    bottom: 0;
+		    left: 15px;
 		}
 	</style>
 
@@ -62,7 +99,7 @@ if (isset($_SESSION['email'])){
 						<li class="nav-item">
 							<a class="nav-link" href="myprojects/">
 								<span class="fas fa-box-open"></span>
-								Nuevos Proyectos <span class="sr-only"></span>
+								Proyectos <span class="sr-only"></span>
 							</a>
 						</li>
 
@@ -91,39 +128,223 @@ if (isset($_SESSION['email'])){
 						</li>
 
 					</ul>
-					<div class="fixed-bottom"><p>&nbsp;<ul class="list-inline social-buttons">
+					<p>&nbsp;<ul class="list-inline social-buttons nav nav-sidebar" id="logout_sidebar_button">
+
 						<li class="list-inline-item">
-							<a href="#">
-								<i class="fab fa-twitter"></i>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">
+							<a href="https://www.facebook.com/arcvii.mx/" target="_blank">
 								<i class="fab fa-facebook"></i>
 							</a>
 						</li>
 						<li class="list-inline-item">
-							<a href="#">
+							<a href="https://www.instagram.com/arcvii_mx/" target="_blank">
 								<i class="fab fa-instagram"></i>
 							</a>
 						</li>
-					</ul></p><p>&nbsp;<span class="copyright small">Copyright &copy; arcvii 2018</span></p></div>
+					</p><p>&nbsp;<span class="copyright small">Copyright &copy; arcvii 2020</span></p>
 				</div>
 			</nav>
 
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-				<div id="1">
-					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">Mi Pizarra</h1>
 						<div class="btn-toolbar mb-2 mb-md-0">
+							<a class="btn btn-sm btn-outline-info" data-target="#modalIMG" data-toggle="modal" href="#"><i class="fas fa-info-circle"></i> Como funciona arcvii</a>&nbsp;
+							<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="modalIMG" role="dialog" tabindex="-1">
+								<div class="modal-dialog modal-lg" role="document">
+									<div class="modal-content">
+										<div class="modal-body mb-0 p-0">
+											<img src="../img/intro/colab.png" alt="" style="width:100%">
+										</div>
+										<div class="modal-footer">
+											<div><!--<a href="https://i3.ytimg.com/vi/vr0qNXmkUJ8/maxresdefault.jpg" target="_blank">Download</a>--></div>
+											<button class="btn btn-outline-primary btn-rounded btn-md ml-4 text-center" data-dismiss="modal" type="button">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<a href="proy/" class="btn btn-sm btn-outline-primary">Nuevo proyecto <i class="fas fa-plus-square"></i></a>
 						</div>
 					</div>
-					<section class="bg-light" id="portfolio">
+				<?php
+
+				$sql7 = "SELECT email_user FROM howto_exp WHERE first=1 and email_user='".$_SESSION['email']."' ";
+				$result7 = $conn->query($sql7);
+
+				if ($result7->num_rows > 0) {
+
+				} else {
+							$sql8 = "INSERT INTO howto_exp (email_user, first)
+							VALUES ('".$_SESSION['email']."', '1')";
+
+							if ($conn->query($sql8) === TRUE) {
+								echo ("<script language='javascript'>
+										$( document ).ready(function() {
+											$('#modalIMG').modal('show');
+										});
+										</script>");
+							} else {
+							    echo "Error: " . $sql . "<br>" . $conn->error;
+							}
+				}
+
+				$sql = "SELECT a.id, a.id_project_type, a.titulo, a.descripcion, a.precio, b.id_project_type, a.status FROM projects as a left join project_type as b on b.id_project_type=a.id_project_type WHERE a.email_user='".$_SESSION['email']."'";
+				$result = $conn->query($sql);
+				$count = 0;
+				if ($result->num_rows > 0) {
+
+					echo "<div class=\"container mt-4\">\n";
+					echo "    <div class=\"row\">\n";
+						// output data of each row
+						while($row = $result->fetch_assoc()) {
+							echo "<div class=\"col-auto mb-3\">\n";
+						echo "            <div class=\"card\" style=\"width: 18rem;\">\n";
+						echo "                <div class=\"card-body\">\n";
+						echo "                    <h5 class=\"card-title\">".$row["titulo"]."</h5>\n";
+						$sql2 = "SELECT a.*,b.nombre, b.apellido, b.telefono FROM projects_candidates as a INNER JOIN (SELECT id, MAX(date) as TopDate FROM projects_candidates WHERE id_project = ".$row["id"]." and status=0 GROUP BY email_user) AS EachItem ON EachItem.TopDate = a.date AND EachItem.id = a.id inner join user as b on a.email_user=b.email";
+						$result2 = $conn->query($sql2);
+						echo '<div class="modal fade" id="exampleModal'.$row["id"].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">'.$row["titulo"].'</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">';
+						if ($result2->num_rows > 0) {
+												echo '<table class="table">
+																<tr>
+																	<th>Nombre</th>
+																	<th>Portfolio</th>
+																	<th>Aceptar</th>
+																	<th>Mensaje</th>
+																</tr>';
+						    while($row2 = $result2->fetch_assoc()) {
+									echo '<tr>
+												    <td>'.$row2["nombre"].' '.$row2["apellido"].'</td>
+												    <td>';
+														echo "<a href=\"javascript:document.getElementById('portfolio".$row2["email_user"]."').submit();\" class=\"btn btn-primary btn-sm\"><i class=\"fas fa-user-astronaut\"></i> Ver mas</a>\n";
+														echo '</td>
+												    <td>';
+														echo "<a href=\"javascript:document.getElementById('aceptar".$row2["email_user"]."').submit();\" class=\"btn btn-success btn-sm\"><i class=\"fas fa-check-square\"></i></a>\n";
+														echo '</td>
+														';
+														echo '<td>';
+														$sql7 = "SELECT message FROM projects_candidates_messages where id_projects_candidates=".$row2["id"]."";
+														$result7 = $conn->query($sql7);
+
+														if ($result7->num_rows > 0) {
+														    // output data of each row
+														    while($row7 = $result7->fetch_assoc()) {
+																		if (strlen($row7["message"])>=11) {
+																			echo substr($row7["message"], 0, 10)."...";
+																		}else{
+																			echo $row7["message"];
+																		}
+
+														    }
+														} else {
+														    echo "";
+														}
+														echo'</td>';
+														//echo "<td><a href=\"javascript:document.getElementById('eliminar".$row2["email_user"]."').submit();\" class=\"btn btn-danger btn-sm\"><i class=\"fas fa-times-circle\"></i></a></td>\n";
+														echo '
+												  </tr>';
+													echo "<form action=\"portfolio/\" id=\"portfolio".$row2["email_user"]."\" method=\"post\">\n";
+													echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+													echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row2["email_user"]."\">\n";
+													echo "  <input type=\"hidden\"  name=\"candidate_id\" value=\"".$row2["id"]."\">\n";
+													echo "</form>\n";
+													echo "<form action=\"portfolio/accept.php\" id=\"aceptar".$row2["email_user"]."\" method=\"post\">\n";
+													echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row2["id"]."\">\n";
+													echo "  <input type=\"hidden\"  name=\"projectid\" value=\"".$row["id"]."\">\n";
+													echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row2["email_user"]."\">\n";
+													echo "</form>\n";
+													echo "<form action=\"portfolio/delete.php\" id=\"eliminar".$row2["email_user"]."\" method=\"post\">\n";
+													echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row2["id"]."\">\n";
+													echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row2["email_user"]."\">\n";
+													echo "</form>\n";
+						        $count++;
+						    }
+								echo '</table>';;
+
+						} else {
+						    echo "0 results";
+						}
+						echo '</div>
+					</div>
+				</div>
+			</div>';
+						if ($count<>0) {
+							echo " <h6 class=\"card-subtitle mb-2 text-muted\"><b>Solicitudes: </b><a data-toggle=\"modal\" class=\"btn btn-info btn-sm\" href=\"#exampleModal".$row["id"]."\">".$count."</a></h6>\n";
+						}else{
+							$sql3 = "SELECT a.*,b.nombre, b.apellido, b.telefono, max(a.date) as 'date' FROM projects_candidates as a INNER JOIN user as b on a.email_user=b.email WHERE a.id_project=".$row["id"]." GROUP by a.id_project";
+							$result3 = $conn->query($sql3);
+
+							if ($result3->num_rows > 0) {
+								if ($row["status"]==0) {
+									echo " <a data-toggle=\"modal\" class=\"btn btn-info btn-sm\" href=\"#\">En espera de aprobacion</a><p></p>\n";
+								}else{
+									echo " <a class=\"btn btn-primary btn-sm\" href=\"javascript:document.getElementById('admin".$row["id"]."').submit();\">Entrar</a> \n";
+									//echo " <a data-toggle=\"modal\" class=\"btn btn-primary btn-sm\" href=\"#\"><i class=\"fas fa-comment-dots\"></i></a> \n";
+									//echo " <a data-toggle=\"modal\" class=\"btn btn-success btn-sm\" href=\"#\">Finalizar</a><p></p>\n";
+									echo "<form action=\"admin/\" id=\"admin".$row["id"]."\" method=\"post\">\n";
+									echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+									echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row["email_user"]."\">\n";
+									echo "</form>\n";
+								}
+
+							} else {
+								if ($row["status"]==0) {
+									echo " <a data-toggle=\"modal\" class=\"btn btn-info btn-sm\" href=\"#\">En espera de aprobacion</a><p></p>\n";
+								}else{
+									echo " <a data-toggle=\"modal\" class=\"btn btn-warning btn-sm\" href=\"#\">Sin solicitudes</a><p></p>\n";
+								}
+
+							}
+						}
+						echo " <br><a class=\"btn btn-primary btn-sm\" href=\"javascript:document.getElementById('edit".$row["id"]."').submit();\"><i class=\"fas fa-pencil-alt\"></i></a>\n";
+						//echo " <a class=\"btn btn-primary btn-sm\" href=\"#\"><i class=\"fas fa-share-square\"></i></a>\n";
+						echo " <a class=\"btn btn-primary btn-sm\" href=\"javascript:document.getElementById('share".$row["id"]."').submit();\"><i class=\"fas fa-share-square\"></i></a>\n";
+						echo "<form action=\"share/\" id=\"share".$row["id"]."\" method=\"post\">\n";
+						echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+						echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row["email_user"]."\">\n";
+						echo "</form>\n";
+						echo "<form action=\"myprojects/edit/\" id=\"edit".$row["id"]."\" method=\"post\">\n";
+						echo "  <input type=\"hidden\"  name=\"project\" value=\"".$row["id"]."\">\n";
+						echo "  <input type=\"hidden\"  name=\"email\" value=\"".$row["email_user"]."\">\n";
+						echo "</form>\n";
+						$count=0;
+
+						//echo "                    <p class=\"card-text\">".substr($row["descripcion"], 0, 50)."</p>\n";
+						//echo '<a href="#" class="btn btn-info">Ver mas</a>';
+						echo "                </div>\n";
+						echo "            </div>\n";
+						echo "        </div>\n";
+						 }
+					echo "      </div>\n";
+					echo "    </div>\n";
+					//echo "  </div>\n";
+				} else {
+						echo '
+							<section class="bg-light" id="portfolio">
+								<div class="jumbotron">
+								  <h1 class="display-4">¡Bienvenido!</h1>
+								  <p class="lead">En esta seccion podras ver el transcurso de cada uno de tus proyectos (envia nuevos requisitos, libera dinero, porcentaje total del proyecto, etc).</p>
+								  <hr class="my-4">
+								  <p></p>
+								  <p class="lead">
+								    <a class="btn btn-primary btn-lg" href="proy/" role="button">Empezar Proyecto</a>
+								  </p>
+								</div>';
+				}
+				 ?>
+
+
 
 					</section>
-				</div>
+
 			</main>
 			</div>
 			</div>

@@ -14,13 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						VALUES ('".$tipo."', '".$titulo."', '".$description."', '".$precio."','".$_SESSION['email']."')";
 	if ($conn->query($sql) === TRUE) {
 		echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.location.href='../';
+    window.location.href='../../';
     </SCRIPT>");
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	$conn->close();
-		
+
 }else{
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
     window.location.href='../';

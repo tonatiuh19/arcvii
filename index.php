@@ -35,12 +35,12 @@ require_once('admin/cn.php');
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
-    <nav class="navbar navbar-expand-lg navbar-light ftco_navbar ftco-navbar-dark site-navbar-target " id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-light ftco_navbar ftco-navbar-dark site-navbar-target mb-2" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand d-xs-none" href="../"><img src="new/images/logos/arcvii LOGO SOLO NOMBRE LETRAS NEGRAS v2.png" class="img-fluid" width="100" alt="arcvii"></span></a><!--arcvii LOGO SOLO NOMBRE LETRAS NEGRAS.png-->
         <form class="mr-2 my-auto col-sm d-inline-block order-1">
             <div class="input-group">
-                <input type="text" class="form-control border border-right-0" placeholder="Search...">
+                <input type="text" class="form-control border border-right-0" id="search" name="search" aria-describedby="basic-addon1" autocomplete="off" placeholder="Search...">
                 <span class="input-group-append">
                     <button class="btn btn-outline-dark border border-left-0" type="button">
                         <i class="fa fa-search"></i>
@@ -48,6 +48,10 @@ require_once('admin/cn.php');
                 </span>
             </div>
         </form>
+        <div class="col-sm-4" style="position: absolute; top:100%; z-index: 1000;">
+          <div class="list-group" id="show-list">
+          </div>
+        </div>
 	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -847,6 +851,27 @@ require_once('admin/cn.php');
         autoplay:true,
         autoplayTimeout:1000000,
         autoplayHoverPause:true
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#search").keyup(function(){     
+        var searchText = $(this).val();
+        if (searchText != '') {
+          $.ajax({
+            url: 'admin/action_search.php',
+            method: 'post',
+            data:{query:searchText},
+            success:function(response){
+              $("#show-list").html(response);
+            }
+          });
+        }else{
+          $("#show-list").html('');
+        }
+      });
+
     });
   </script>
 

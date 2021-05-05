@@ -35,16 +35,24 @@ require_once('admin/cn.php');
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
-    <nav class="navbar navbar-expand-lg navbar-light ftco_navbar ftco-navbar-dark site-navbar-target" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-light ftco_navbar ftco-navbar-dark site-navbar-target " id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand d-xs-none" href="../"><img src="new/images/logos/arcvii LOGO SOLO NOMBRE LETRAS NEGRAS v2.png" class="img-fluid" width="100" alt="arcvii"></span></a><!--arcvii LOGO SOLO NOMBRE LETRAS NEGRAS.png-->
-
-
+        <form class="mr-2 my-auto col-sm d-inline-block order-1">
+            <div class="input-group">
+                <input type="text" class="form-control border border-right-0" placeholder="Search...">
+                <span class="input-group-append">
+                    <button class="btn btn-outline-dark border border-left-0" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
 	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
+	      <div class="navbar-collapse collapse flex-shrink-1 flex-grow-0 order-last" id="ftco-nav">
 	        <ul class="navbar-nav nav ml-auto">
 	          <li class="nav-item"><a href="sign-up/" class="nav-link text-dark"><span>Regístrate</span></a></li>
 	          <li class="nav-item"><a href="sign-in/" class="nav-link text-dark"><span>Ingresa</span></a></li>
